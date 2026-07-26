@@ -1,426 +1,529 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SDA Camp Meeting 2026 – Kiboswa</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --green-dark:#1B4D2E;
-  --green-mid:#2D6A40;
-  --green-light:#3d8a55;
-  --cream:#EAF4EC;
-  --cream2:#F0F8F2;
-  --gold:#C9A227;
-  --navy:#1B3A5C;
-  --navy-light:#2B5A8A;
-  --grey:#8a9aaa;
-  --text:#1a2a1a;
-}
-body{font-family:'Lato',sans-serif;background:#d4ddd4;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:1.2rem 1rem 2.5rem;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDA Camp Meeting 2026 – Kiboswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #d2dfd2;
+      font-family: 'Lato', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 1rem 2rem;
+      min-height: 100vh;
+    }
+    .toolbar {
+      width: 100%;
+      max-width: 800px;
+      background: white;
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .toolbar h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      color: #1B4D2E;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.4rem;
+    }
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .field-group label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #4a5a4a;
+    }
+    .field-group input, .field-group textarea {
+      font-size: 12px;
+      padding: 4px 8px;
+      border: 1px solid #c0ccc0;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      width: 180px;
+      outline: none;
+    }
+    .field-group textarea {
+      width: 100%;
+      min-height: 70px;
+      resize: vertical;
+      font-size: 11px;
+    }
+    .field-group input.short { width: 120px; }
+    .field-group input:focus, .field-group textarea:focus { border-color: #1B4D2E; }
+    .actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn {
+      padding: 4px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 4px;
+      border: 1px solid #b0beb0;
+      background: #f2f7f2;
+      color: #1a2a1a;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: 'Lato', sans-serif;
+    }
+    .btn:hover { background: #e3ece3; }
+    .btn-primary { background: #1B4D2E; border-color: #1B4D2E; color: white; }
+    .btn-primary:hover { background: #2d6a40; }
+    .btn-gold { background: #C9A227; border-color: #C9A227; color: #111; }
+    .btn-gold:hover { background: #dbb62e; }
+    .btn-outline { background: transparent; border-color: #8a9aaa; }
+    .status {
+      font-size: 10px;
+      color: #5a6a5a;
+      margin-top: 4px;
+    }
+    .stage {
+      background: #8a9a8a;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .flyer {
+      width: 760px;
+      height: 400px;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Lato', sans-serif;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+      background: #F0F8F2;
+    }
+    .left-panel {
+      width: 256px;
+      flex-shrink: 0;
+      background: #1B4D2E;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 16px 16px;
+      position: relative;
+      z-index: 2;
+    }
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      right: -22px;
+      top: 0;
+      bottom: 0;
+      width: 22px;
+      background: #1B4D2E;
+      -webkit-mask: radial-gradient(circle 11px at 0 11px, black 98%, transparent 100%) top / 22px 22px repeat-y;
+      mask: radial-gradient(circle 11px at 0 11px, black 98%, transparent 100%) top / 22px 22px repeat-y;
+    }
+    .logo-box {
+      width: 78px;
+      height: 78px;
+      background: white;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+    }
+    .logo-box img { width: 68px; height: 68px; object-fit: contain; border-radius: 8px; }
+    .church-name { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; color: white; text-align: center; line-height: 1.3; margin: 4px 0 0; }
+    .district-sub { font-size: 8.5px; color: rgba(255,255,255,0.5); text-align: center; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 2px; }
+    .announce-tag { font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #C9A227; margin-bottom: 2px; }
+    .camp-title { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 700; color: white; letter-spacing: 2px; text-align: center; line-height: 1.1; }
+    .year-big { font-family: 'Cinzel', serif; font-size: 48px; font-weight: 700; color: #C9A227; line-height: 1; text-align: center; }
+    .footer-hash { font-size: 7px; color: rgba(255,255,255,0.3); text-align: center; letter-spacing: 0.3px; }
+    .right-panel {
+      flex: 1;
+      background: #F0F8F2;
+      display: flex;
+      flex-direction: column;
+      padding: 14px 20px 10px 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .right-panel > * { position: relative; z-index: 1; }
+    .intro-text { font-size: 11.5px; color: #1f2f1f; line-height: 1.45; margin-bottom: 4px; }
+    .intro-text strong { color: #1B4D2E; font-weight: 900; }
+    .offer-head { font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; color: #1B4D2E; margin-bottom: 6px; }
+    .pay-label { font-size: 8px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #1B3A5C; margin-bottom: 4px; }
+    .payment-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 6px; }
+    .bank-badge { flex-shrink: 0; width: 58px; height: 42px; display: flex; align-items: center; justify-content: center; background: transparent; }
+    .bank-badge img { width: 58px; height: 42px; object-fit: contain; border-radius: 4px; }
+    .bank-details { flex: 1; }
+    .bank-details .label-sm { font-size: 7.5px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #8a9aaa; margin-bottom: 1px; }
+    .bank-details .value { font-size: 13px; font-weight: 700; color: #1B3A5C; }
+    .bank-details .value-lg { font-size: 14px; font-weight: 900; letter-spacing: 0.5px; }
+    .date-box {
+      background: rgba(27,77,46,0.07);
+      border-left: 2.5px solid #1B4D2E;
+      padding: 4px 10px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .date-box .label-sm { font-size: 7px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #8a9aaa; }
+    .date-box .day { font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; color: #1B4D2E; }
+    .date-box .month { font-family: 'Cinzel', serif; font-size: 10px; font-weight: 700; color: #1B3A5C; }
+    .rule { border: none; border-top: 1px dashed rgba(27,77,46,0.2); margin: 4px 0 3px; }
+    .pledge-head { font-size: 8.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: #1B3A5C; margin-bottom: 0px; }
+    .pledge-sub { font-size: 9px; font-style: italic; color: #8a9aaa; margin-bottom: 4px; }
+    .pledge-row { display: flex; gap: 14px; align-items: flex-end; margin-bottom: 2px; }
+    .pledge-col { flex: 1; }
+    .pledge-col.short { flex: 0 0 130px; }
+    .pledge-col .label-sm { font-size: 7.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #1B3A5C; margin-bottom: 1px; }
+    .pledge-input {
+      border: none;
+      border-bottom: 1.5px solid #1B3A5C;
+      width: 100%;
+      height: 22px;
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1B3A5C;
+      background: transparent;
+      outline: none;
+      padding: 0 2px;
+    }
+    .pledge-input::placeholder { color: rgba(27,60,92,0.2); font-weight: 400; font-style: italic; font-size: 10px; }
+    .pledge-static { display: none; height: 22px; border-bottom: 1.5px solid #1B3A5C; font-family: 'Cinzel', serif; font-size: 12px; font-weight: 600; color: #1B3A5C; line-height: 22px; padding: 0 2px; }
+    .dotted-rule { border: none; border-top: 1px dotted rgba(27,77,46,0.25); margin: 4px 0; }
+    .scripture { padding: 2px 0; }
+    .scripture .verse { font-size: 10.5px; font-style: italic; color: #2f3f2f; line-height: 1.4; margin-bottom: 1px; }
+    .scripture .ref { font-size: 8px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #C9A227; }
+    .footer-bar { display: flex; justify-content: space-between; align-items: center; padding: 3px 0 0; }
+    .footer-bar span { font-size: 6.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #1B4D2E; opacity: 0.7; }
+    .ghost-logo { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); width: 140px; height: 140px; opacity: 0.06; pointer-events: none; z-index: 0; filter: grayscale(1) blur(1px); }
 
-/* ── CONTROLS ── */
-.ctrl-panel{width:100%;max-width:920px;background:#fff;border-radius:8px;padding:.9rem 1.2rem;margin-bottom:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.1);}
-.ctrl-panel h2{font-family:'Cinzel',serif;font-size:13px;color:var(--green-dark);margin-bottom:.8rem;letter-spacing:1px;}
-.ctrl-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
-.cf{display:flex;flex-direction:column;gap:3px;}
-.cf label{font-size:10px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;}
-.cf input{font-size:13px;padding:5px 9px;border:1px solid #ccc;border-radius:4px;font-family:'Lato',sans-serif;color:#222;outline:none;width:200px;}
-.cf input.narrow{width:140px;}
-.cf input:focus{border-color:var(--green-dark);}
-.btn{padding:6px 14px;font-size:12px;font-family:'Lato',sans-serif;font-weight:700;border-radius:4px;border:1px solid #ccc;background:#f5f5f5;color:#333;cursor:pointer;white-space:nowrap;}
-.btn:hover{background:#eaeaea;}
-.btn.go{background:var(--green-dark);color:#fff;border-color:var(--green-dark);}
-.btn.go:hover{background:var(--green-mid);}
-.btn.exp{background:var(--gold);color:#1a1a1a;border-color:var(--gold);}
-.btn.exp:hover{background:#b38f1e;}
-.hint-txt{font-size:11px;color:#888;margin-top:6px;}
+    .bulk-area {
+      margin-top: 8px;
+      border-top: 1px solid #e0e8e0;
+      padding-top: 8px;
+    }
+    .bulk-area .flex-row { align-items: flex-start; }
+    .bulk-area .field-group textarea { width: 100%; max-width: 400px; }
+    .nav-bulk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .nav-bulk span { font-size: 11px; color: #2a3a2a; }
+    .pbar { height: 4px; background: #e0e8e0; border-radius: 2px; margin: 6px 0 3px; width: 100%; max-width: 400px; }
+    .pfill { height: 100%; background: #1B4D2E; border-radius: 2px; width: 0%; transition: width 0.2s; }
 
-/* ── STAGE ── */
-.stage{background:#9aaa9a;border-radius:10px;padding:18px;display:flex;flex-direction:column;align-items:center;gap:10px;}
-
-/* ── FLYER  900 × 506 (16:9) ── */
-.flyer{
-  width:900px;height:506px;
-  display:flex;
-  position:relative;
-  overflow:hidden;
-  font-family:'Lato',sans-serif;
-  box-shadow:0 8px 36px rgba(0,0,0,0.3);
-}
-
-/* ── LEFT PANEL ── */
-.left{
-  width:310px;
-  flex-shrink:0;
-  background:var(--green-dark);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:space-between;
-  padding:28px 20px 22px;
-  position:relative;
-  z-index:1;
-}
-
-/* scallop edge right side of left panel */
-.left::after{
-  content:'';
-  position:absolute;
-  right:-1px;top:0;bottom:0;
-  width:22px;
-  background:var(--cream2);
-  -webkit-mask:radial-gradient(circle 11px at 100% 11px, transparent 98%, black 100%) top / 22px 22px repeat-y;
-  mask:radial-gradient(circle 11px at 100% 11px, transparent 98%, black 100%) top / 22px 22px repeat-y;
-}
-
-/* SDA flame logo SVG placeholder */
-.logo-box{
-  width:100px;height:100px;
-  background:#fff;
-  border-radius:18px;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 16px rgba(0,0,0,0.25);
-  flex-shrink:0;
-}
-
-.church-name{
-  font-family:'Cinzel',serif;
-  font-size:18px;font-weight:700;
-  color:#fff;
-  text-align:center;
-  line-height:1.3;
-  margin:4px 0;
-}
-.district-sub{font-size:11px;color:rgba(255,255,255,0.55);text-align:center;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-
-.announce-tag{
-  font-size:9px;font-weight:700;
-  letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--gold);
-  margin-bottom:8px;
-}
-
-.camp-label{
-  font-family:'Cinzel',serif;
-  font-size:22px;font-weight:700;
-  color:#fff;
-  letter-spacing:2px;
-  text-align:center;
-  line-height:1.1;
-}
-.year-label{
-  font-family:'Cinzel',serif;
-  font-size:56px;font-weight:700;
-  color:var(--gold);
-  line-height:1;
-  text-align:center;
-}
-
-.left-footer{font-size:9px;color:rgba(255,255,255,0.35);text-align:center;letter-spacing:.5px;}
-
-/* ── RIGHT PANEL ── */
-.right{
-  flex:1;
-  background:var(--cream2);
-  display:flex;
-  flex-direction:column;
-  padding:22px 28px 14px 36px;
-  gap:0;
-}
-
-.r-top-intro{font-size:13.5px;color:#333;line-height:1.45;margin-bottom:10px;}
-.r-top-intro strong{color:var(--green-dark);font-weight:900;}
-.camp-offerings{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--green-dark);margin-bottom:10px;}
-
-.payment-tag{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px;}
-
-/* payment row */
-.pay-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:10px;}
-.kcb-badge{
-  background:var(--green-mid);
-  color:#fff;
-  font-size:10px;font-weight:700;
-  padding:5px 10px;
-  border-radius:4px;
-  letter-spacing:1px;
-  flex-shrink:0;
-  line-height:1.3;
-  display:flex;flex-direction:column;align-items:center;
-}
-.kcb-badge .kb{font-size:14px;font-weight:900;}
-.kcb-badge .sub{font-size:8px;opacity:.7;}
-
-.pay-via-col{}
-.pay-via-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:1px;}
-.pay-via-bank{font-size:15px;font-weight:700;color:var(--navy);}
-
-.pay-details-row{display:flex;gap:28px;margin-bottom:10px;}
-.pdc .pdc-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);margin-bottom:1px;}
-.pdc .pdc-val{font-size:14px;font-weight:700;color:var(--text);}
-
-.date-box{
-  background:rgba(27,77,46,0.07);
-  border-left:3px solid var(--green-dark);
-  padding:6px 12px;
-  margin-left:auto;
-  text-align:center;
-  flex-shrink:0;
-}
-.date-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--grey);}
-.date-val{font-family:'Cinzel',serif;font-size:14px;font-weight:700;color:var(--green-dark);}
-.date-year{font-family:'Cinzel',serif;font-size:13px;font-weight:700;color:var(--navy);}
-
-/* spacer rule */
-.rule{border:none;border-top:1px dashed rgba(27,77,46,0.2);margin:8px 0;}
-
-/* PLEDGE SECTION */
-.pledge-head{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:2px;}
-.pledge-sub{font-size:10px;font-style:italic;color:var(--grey);margin-bottom:8px;}
-
-.pledge-row{display:flex;gap:20px;align-items:flex-end;margin-bottom:2px;}
-.pledge-col{flex:1;}
-.pledge-col-amt{width:160px;flex-shrink:0;}
-.pledge-field-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--navy);margin-bottom:3px;}
-.pledge-line{
-  border:none;border-bottom:1.5px solid var(--navy);
-  width:100%;height:24px;
-  font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--navy);
-  background:transparent;outline:none;
-  padding:0 2px;
-}
-.pledge-line::placeholder{color:rgba(27,60,92,0.25);font-weight:400;font-size:12px;font-style:italic;}
-.pledge-line.screen-only{display:block;}
-.pledge-line-print{display:none;}
-
-/* dotted fill lines */
-.fill-lines{margin-top:4px;}
-.dotted{border:none;border-top:1px dotted rgba(27,77,46,0.3);margin:5px 0;}
-
-/* SCRIPTURE */
-.scripture{
-  margin-top:auto;
-  padding-top:8px;
-}
-.scripture-text{font-size:12px;font-style:italic;color:#444;line-height:1.4;margin-bottom:2px;}
-.scripture-ref{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);}
-
-/* bottom footer bar */
-.footer-bar{
-  background:var(--green-dark);
-  margin:10px -28px -14px -36px;
-  padding:6px 28px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.footer-bar span{
-  font-size:9px;font-weight:700;letter-spacing:1.5px;
-  text-transform:uppercase;color:rgba(255,255,255,0.65);
-}
-
-/* SDA flame SVG */
-svg.flame{width:60px;height:60px;}
-
-/* print-only pledge line */
-@media print{
-  .ctrl-panel,.stage-hint{display:none!important;}
-  .stage{background:none;padding:0;}
-  .flyer{box-shadow:none;}
-  .pledge-line.screen-only{display:none!important;}
-  .pledge-line-print{display:block;width:100%;height:24px;border-bottom:1.5px solid var(--navy);line-height:24px;font-family:'Cinzel',serif;font-size:14px;font-weight:600;color:var(--navy);}
-  @page{size:landscape;margin:0;}
-  body{padding:0;background:#fff;}
-}
-</style>
+    @media print {
+      .toolbar, .stage-hint { display: none !important; }
+      .stage { background: none; padding: 0; }
+      .flyer { box-shadow: none; }
+      .pledge-input { display: none !important; }
+      .pledge-static { display: block !important; }
+      @page { size: landscape; margin: 0; }
+      body { padding: 0; background: #fff; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- CONTROLS -->
-<div class="ctrl-panel">
-  <h2>✦ SDA CAMP MEETING 2026 — PERSONALISE & EXPORT</h2>
-  <div class="ctrl-row">
-    <div class="cf">
-      <label>Member / Family Name</label>
-      <input id="inp-member" type="text" placeholder="e.g. The Kamau Family" oninput="updateFlyer()"/>
+<div class="toolbar">
+  <h2>✦ CAMP MEETING 2026 — PERSONALISE &amp; EXPORT</h2>
+
+  <!-- SINGLE -->
+  <div class="flex-row">
+    <div class="field-group">
+      <label>Member / Family</label>
+      <input id="memberName" type="text" placeholder="e.g. The Kamau Family" oninput="sync()" />
     </div>
-    <div class="cf">
+    <div class="field-group">
       <label>Amount (KES)</label>
-      <input id="inp-amount" type="text" class="narrow" placeholder="e.g. 5,000" oninput="updateFlyer()"/>
+      <input id="memberAmount" type="text" class="short" placeholder="e.g. 5,000" oninput="sync()" />
     </div>
-    <div style="margin-top:auto;display:flex;gap:8px;">
-      <button class="btn go" onclick="updateFlyer()">Preview</button>
-      <button class="btn exp" onclick="exportPNG()">⬇ Save as Image</button>
-      <button class="btn" onclick="window.print()">🖨 Print</button>
-      <button class="btn" onclick="resetFlyer()">Reset</button>
+    <div class="actions">
+      <button class="btn btn-gold" onclick="savePNG()">⬇ Save PNG</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨 Print</button>
+      <button class="btn" onclick="resetFields()">Reset</button>
     </div>
   </div>
-  <p class="hint-txt">Type a name and amount → Preview updates live → Save as Image to download a high-res PNG.</p>
+
+  <!-- BULK UPLOAD -->
+  <div class="bulk-area">
+    <div class="flex-row" style="align-items:flex-start;">
+      <div class="field-group" style="flex:1;">
+        <label>Bulk list — one per line: Name, Amount (optional)</label>
+        <textarea id="bulkList" placeholder="The Kamau Family, 5000&#10;Elder Rotich, 3000&#10;Deacon Chebet&#10;The Sang Family, 10000"></textarea>
+      </div>
+      <div class="actions" style="margin-top:18px;">
+        <button class="btn btn-primary" onclick="loadBulk()">📋 Load List</button>
+        <button class="btn btn-gold" onclick="saveAllBulk()">⬇⬇ Download All</button>
+      </div>
+    </div>
+    <div id="bulkStatus" class="status">Load a list to generate multiple flyers.</div>
+    <div id="bulkNav" style="display:none;">
+      <div class="pbar"><div class="pfill" id="bulkProgress"></div></div>
+      <div class="nav-bulk">
+        <button class="btn btn-outline" onclick="bulkPrev()">← Prev</button>
+        <span id="bulkCounter">0 / 0</span>
+        <button class="btn btn-outline" onclick="bulkNext()">Next →</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- STAGE -->
 <div class="stage">
+  <div class="flyer" id="theFlyer">
 
-<div class="flyer" id="the-flyer">
-
-  <!-- LEFT -->
-  <div class="left">
-    <div class="logo-box">
-      <!-- SDA flame logo rendered as inline SVG -->
-      <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="flame">
-        <!-- Bible base -->
-        <rect x="8" y="58" width="64" height="8" rx="2" fill="#1B4D2E"/>
-        <rect x="12" y="54" width="56" height="6" rx="1" fill="#2D6A40"/>
-        <!-- Spine line -->
-        <rect x="38" y="54" width="4" height="8" fill="#1B4D2E"/>
-        <!-- Left flame -->
-        <path d="M28 52 C20 40 16 28 22 18 C18 26 26 32 26 40 C24 34 28 26 32 20 C30 30 28 40 32 46 Z" fill="#C9A227"/>
-        <!-- Center flame -->
-        <path d="M40 50 C32 36 28 22 36 10 C32 22 40 30 38 42 C36 34 42 24 46 16 C44 28 40 38 44 46 Z" fill="#C9A227" opacity=".9"/>
-        <!-- Right flame -->
-        <path d="M52 52 C44 40 48 26 54 18 C50 28 54 36 52 44 C50 36 56 26 58 20 C56 32 52 40 54 48 Z" fill="#C9A227" opacity=".8"/>
-      </svg>
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="logo-box">
+        <img id="sdaLogo" src="https://i.pinimg.com/736x/0e/b6/8b/0eb68b67233374d3e6e7974b074eb93d.jpg" alt="SDA" />
+      </div>
+      <div style="text-align:center;">
+        <div class="church-name">SDA Kapkonjusmo<br>District</div>
+        <div class="district-sub">Kiboswa · West Rift Valley</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="announce-tag">Camp Meeting Announcement!!</div>
+        <div class="camp-title">CAMP<br>MEETING</div>
+        <div class="year-big">2026</div>
+      </div>
+      <div class="footer-hash">#FOCUSED ON THE MISSION · 1 TIM 3:16–17 · #NZK 52</div>
     </div>
 
-    <div style="text-align:center;">
-      <div class="church-name">SDA Kapkonjusmo<br>District</div>
-      <div class="district-sub">Kiboswa · West Rift Valley</div>
-    </div>
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="intro-text">On behalf of <strong>SDA KIBOSWA Church</strong><br>We take this opportunity to remind all members to <strong>give their</strong></div>
+      <div class="offer-head">Camp Meeting Offerings</div>
+      <div class="pay-label">You can make payment through the following account</div>
 
-    <div style="text-align:center;">
-      <div class="announce-tag">Camp Meeting Announcement!!</div>
-      <div class="camp-label">CAMP<br>MEETING</div>
-      <div class="year-label">2026</div>
-    </div>
+      <div class="payment-row">
+        <div style="display:flex; gap:10px; flex:1; align-items:flex-start;">
+          <div class="bank-badge">
+            <img id="kcbLogo" src="https://i.pinimg.com/736x/d1/08/7d/d1087d1abc263b95a2bea32cd9e70ba0.jpg" alt="KCB" />
+          </div>
+          <div class="bank-details">
+            <div class="label-sm">Pay Via</div>
+            <div class="value">KCB Bank</div>
+            <div style="margin-top:2px;"><span class="label-sm">Account Title</span><br><span class="value" style="font-size:11px;">SDA CHURCH West Rift Valley Field</span></div>
+            <div style="margin-top:2px;"><span class="label-sm">Account Number</span><br><span class="value value-lg">1347685391</span></div>
+          </div>
+        </div>
+        <div class="date-box">
+          <div class="label-sm">Date</div>
+          <div class="day">9<sup style="font-size:7px;">TH</sup> – 15<sup style="font-size:7px;">TH</sup></div>
+          <div class="month">AUGUST</div>
+          <div class="month">2026</div>
+        </div>
+      </div>
 
-    <div class="left-footer">#FOCUSED ON THE MISSION &nbsp;·&nbsp; 1 TIM 3:16–17 &nbsp;·&nbsp; #NZK 52</div>
+      <img id="ghostLogo" class="ghost-logo" src="https://i.pinimg.com/736x/0e/b6/8b/0eb68b67233374d3e6e7974b074eb93d.jpg" alt="ghost" />
+      <hr class="rule" />
+
+      <div class="pledge-head">Camp Meeting Pledge</div>
+      <div class="pledge-sub">For personalisation — fill in per member / family</div>
+
+      <div class="pledge-row">
+        <div class="pledge-col">
+          <div class="label-sm">Member / Family Name</div>
+          <input class="pledge-input" id="pledgeName" type="text" placeholder="Member Name" oninput="syncFromPledge()" />
+          <div class="pledge-static" id="staticName"></div>
+        </div>
+        <div class="pledge-col short">
+          <div class="label-sm">Amount (KES)</div>
+          <input class="pledge-input" id="pledgeAmount" type="text" placeholder="KES" oninput="syncFromPledge()" />
+          <div class="pledge-static" id="staticAmount"></div>
+        </div>
+      </div>
+      <div class="dotted-rule"></div>
+
+      <div class="scripture">
+        <div class="verse">"Each one must give as he has decided in his heart…"</div>
+        <div class="ref" style="margin-bottom:3px;">2 Corinthians 9:7</div>
+        <div class="footer-bar">
+          <span>#Focused on the Mission</span>
+          <span>Kiboswa SDA · Camp Meeting 2026</span>
+          <span>#1 Timothy 3:16–17</span>
+          <span># NZK 52</span>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- RIGHT -->
-  <div class="right">
-
-    <div class="r-top-intro">
-      On behalf of <strong>SDA KIBOSWA Church</strong><br>
-      We take this opportunity to remind all members to <strong>give their</strong>
-    </div>
-
-    <div class="camp-offerings">Camp Meeting Offerings</div>
-
-    <div class="payment-tag">You can make payment through the following account</div>
-
-    <div style="display:flex;gap:18px;align-items:flex-start;margin-bottom:8px;">
-      <div style="display:flex;gap:12px;align-items:flex-start;flex:1;">
-        <div class="kcb-badge">
-          <span class="kb">K/B</span>
-          <span class="sub">Making the Pledge</span>
-        </div>
-        <div class="pay-via-col">
-          <div class="pay-via-label">Pay Via</div>
-          <div class="pay-via-bank">KCB Bank</div>
-          <div style="margin-top:6px;">
-            <div class="pdc-label" style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a9aaa;">Account Title</div>
-            <div style="font-size:12px;font-weight:700;color:#1a2a1a;">SDA CHURCH West Rift Valley Field</div>
-          </div>
-          <div style="margin-top:4px;">
-            <div class="pdc-label" style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a9aaa;">Account Number</div>
-            <div style="font-size:16px;font-weight:900;color:#1a2a1a;letter-spacing:1px;">1347685391</div>
-          </div>
-        </div>
-      </div>
-      <div class="date-box">
-        <div class="date-label">Date</div>
-        <div class="date-val">9<sup style="font-size:8px;">TH</sup> – 15<sup style="font-size:8px;">TH</sup></div>
-        <div class="date-year">AUGUST, 2026</div>
-      </div>
-    </div>
-
-    <hr class="rule"/>
-
-    <div class="pledge-head">Camp Meeting Pledge</div>
-    <div class="pledge-sub">For personalisation — fill in per member / family</div>
-
-    <div class="pledge-row">
-      <div class="pledge-col">
-        <div class="pledge-field-label">Member Name</div>
-        <input class="pledge-line screen-only" id="show-member" type="text" placeholder="Member / Family Name" oninput="syncMember(this.value)"/>
-        <div class="pledge-line-print" id="print-member"></div>
-      </div>
-      <div class="pledge-col-amt">
-        <div class="pledge-field-label">Amount (KES)</div>
-        <input class="pledge-line screen-only" id="show-amount" type="text" placeholder="KES" oninput="syncAmount(this.value)"/>
-        <div class="pledge-line-print" id="print-amount"></div>
-      </div>
-    </div>
-
-    <div class="fill-lines">
-      <div class="dotted"></div>
-      <div class="dotted"></div>
-    </div>
-
-    <div class="scripture">
-      <div class="scripture-text">"Each one must give as he has decided in his heart…"</div>
-      <div class="scripture-ref">2 Corinthians 9:7</div>
-    </div>
-
-    <div class="footer-bar">
-      <span>#Focused on the Mission</span>
-      <span>Kiboswa SDA Church &nbsp;·&nbsp; Camp Meeting 2026</span>
-      <span>#1 Timothy 3:16–17</span>
-      <span># NZK 52</span>
-    </div>
-
-  </div><!-- /right -->
-</div><!-- /flyer -->
-
-<p class="stage-hint" style="font-size:11px;color:#4a5a4a;">Right-click → <strong>Save image as…</strong> &nbsp;or&nbsp; use <strong>Save as Image</strong> above</p>
+  <p style="font-size:10px; color:#3a4a3a;">Right‑click the card → <strong>Save image as…</strong> &nbsp;or use buttons above</p>
 </div>
 
 <script>
-function updateFlyer(){
-  var m=document.getElementById('inp-member').value.trim();
-  var a=document.getElementById('inp-amount').value.trim();
-  document.getElementById('show-member').value=m;
-  document.getElementById('show-amount').value=a;
-  document.getElementById('print-member').textContent=m;
-  document.getElementById('print-amount').textContent=a?'KES '+a:'';
-}
-function syncMember(v){document.getElementById('inp-member').value=v;}
-function syncAmount(v){document.getElementById('inp-amount').value=v;}
-function resetFlyer(){
-  ['inp-member','inp-amount','show-member','show-amount'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el.tagName==='INPUT')el.value='';
+  // ---- SYNC ----
+  function sync() {
+    const n = document.getElementById('memberName').value.trim();
+    const a = document.getElementById('memberAmount').value.trim();
+    document.getElementById('pledgeName').value = n;
+    document.getElementById('pledgeAmount').value = a;
+    document.getElementById('staticName').textContent = n;
+    document.getElementById('staticAmount').textContent = a ? 'KES ' + a : '';
+  }
+  function syncFromPledge() {
+    const n = document.getElementById('pledgeName').value.trim();
+    const a = document.getElementById('pledgeAmount').value.trim();
+    document.getElementById('memberName').value = n;
+    document.getElementById('memberAmount').value = a;
+    document.getElementById('staticName').textContent = n;
+    document.getElementById('staticAmount').textContent = a ? 'KES ' + a : '';
+  }
+  function resetFields() {
+    document.getElementById('memberName').value = '';
+    document.getElementById('memberAmount').value = '';
+    document.getElementById('pledgeName').value = '';
+    document.getElementById('pledgeAmount').value = '';
+    document.getElementById('staticName').textContent = '';
+    document.getElementById('staticAmount').textContent = '';
+    document.getElementById('statusMsg').textContent = 'Fields cleared.';
+  }
+
+  // ---- SINGLE PNG ----
+  function savePNG() {
+    const name = document.getElementById('pledgeName').value.trim() || 'member';
+    captureAndDownload(name);
+  }
+
+  function captureAndDownload(name) {
+    // show static, hide inputs
+    document.querySelectorAll('.pledge-input').forEach(el => el.style.display = 'none');
+    document.querySelectorAll('.pledge-static').forEach(el => el.style.display = 'block');
+    document.getElementById('staticName').textContent = document.getElementById('pledgeName').value.trim();
+    const amt = document.getElementById('pledgeAmount').value.trim();
+    document.getElementById('staticAmount').textContent = amt ? 'KES ' + amt : '';
+
+    html2canvas(document.getElementById('theFlyer'), {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+      logging: false
+    }).then(canvas => {
+      document.querySelectorAll('.pledge-input').forEach(el => el.style.display = '');
+      document.querySelectorAll('.pledge-static').forEach(el => el.style.display = 'none');
+      const link = document.createElement('a');
+      link.download = 'sda-camp-2026-' + name.replace(/\s+/g, '-').toLowerCase() + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      document.getElementById('statusMsg').textContent = 'PNG saved for ' + (name || 'member');
+    }).catch(err => {
+      document.querySelectorAll('.pledge-input').forEach(el => el.style.display = '');
+      document.querySelectorAll('.pledge-static').forEach(el => el.style.display = 'none');
+      document.getElementById('statusMsg').textContent = 'Error: ' + err.message;
+    });
+  }
+
+  // ---- BULK ----
+  let bulkItems = [];
+  let bulkIndex = 0;
+
+  function loadBulk() {
+    const raw = document.getElementById('bulkList').value;
+    const lines = raw.split('\n').filter(l => l.trim() !== '');
+    bulkItems = lines.map(line => {
+      const parts = line.split(',').map(s => s.trim());
+      return { name: parts[0] || 'Member', amount: parts[1] || '' };
+    }).filter(item => item.name !== '');
+    if (bulkItems.length === 0) {
+      document.getElementById('bulkStatus').textContent = 'No valid entries found. Use: Name, Amount';
+      document.getElementById('bulkNav').style.display = 'none';
+      return;
+    }
+    bulkIndex = 0;
+    document.getElementById('bulkNav').style.display = 'block';
+    document.getElementById('bulkStatus').textContent = bulkItems.length + ' members loaded.';
+    showBulkItem();
+  }
+
+  function showBulkItem() {
+    if (!bulkItems.length) return;
+    const item = bulkItems[bulkIndex];
+    document.getElementById('memberName').value = item.name;
+    document.getElementById('memberAmount').value = item.amount;
+    sync();
+    document.getElementById('bulkCounter').textContent = (bulkIndex + 1) + ' / ' + bulkItems.length;
+    document.getElementById('bulkProgress').style.width = Math.round((bulkIndex + 1) / bulkItems.length * 100) + '%';
+  }
+
+  function bulkPrev() {
+    if (bulkIndex > 0) { bulkIndex--; showBulkItem(); }
+  }
+  function bulkNext() {
+    if (bulkIndex < bulkItems.length - 1) { bulkIndex++; showBulkItem(); }
+  }
+
+  // ---- DOWNLOAD ALL BULK ----
+  async function saveAllBulk() {
+    if (!bulkItems.length) {
+      document.getElementById('bulkStatus').textContent = 'Load a list first.';
+      return;
+    }
+    const total = bulkItems.length;
+    document.getElementById('bulkStatus').textContent = 'Saving 0 / ' + total + ' …';
+    for (let i = 0; i < total; i++) {
+      bulkIndex = i;
+      showBulkItem();
+      // wait for DOM update
+      await new Promise(r => setTimeout(r, 300));
+      const name = bulkItems[i].name || 'member';
+      // capture
+      document.querySelectorAll('.pledge-input').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.pledge-static').forEach(el => el.style.display = 'block');
+      document.getElementById('staticName').textContent = name;
+      const amt = bulkItems[i].amount || '';
+      document.getElementById('staticAmount').textContent = amt ? 'KES ' + amt : '';
+
+      try {
+        const canvas = await html2canvas(document.getElementById('theFlyer'), {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null,
+          logging: false
+        });
+        const link = document.createElement('a');
+        link.download = 'sda-camp-2026-' + name.replace(/\s+/g, '-').toLowerCase() + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (e) {
+        console.warn('Error on ' + name, e);
+      }
+      document.querySelectorAll('.pledge-input').forEach(el => el.style.display = '');
+      document.querySelectorAll('.pledge-static').forEach(el => el.style.display = 'none');
+      document.getElementById('bulkStatus').textContent = 'Saved ' + (i + 1) + ' / ' + total + ' …';
+      // small delay between downloads
+      await new Promise(r => setTimeout(r, 500));
+    }
+    document.getElementById('bulkStatus').textContent = '✅ All ' + total + ' images saved!';
+  }
+
+  // ---- INIT ----
+  window.addEventListener('DOMContentLoaded', function() {
+    // logos already set
   });
-  document.getElementById('print-member').textContent='';
-  document.getElementById('print-amount').textContent='';
-}
-function exportPNG(){
-  // Freeze input values to divs for clean rendering
-  var m=document.getElementById('show-member').value;
-  var a=document.getElementById('show-amount').value;
-  document.getElementById('print-member').textContent=m;
-  document.getElementById('print-amount').textContent=a?'KES '+a:'';
-  // Hide inputs temporarily, show print divs
-  document.querySelectorAll('.pledge-line.screen-only').forEach(function(el){el.style.display='none';});
-  document.querySelectorAll('.pledge-line-print').forEach(function(el){el.style.display='block';});
-  var flyer=document.getElementById('the-flyer');
-  html2canvas(flyer,{
-    scale:2,useCORS:true,allowTaint:true,
-    backgroundColor:null,logging:false,
-    width:flyer.offsetWidth,height:flyer.offsetHeight
-  }).then(function(canvas){
-    document.querySelectorAll('.pledge-line.screen-only').forEach(function(el){el.style.display='block';});
-    document.querySelectorAll('.pledge-line-print').forEach(function(el){el.style.display='none';});
-    var a=document.createElement('a');
-    var name=(document.getElementById('inp-member').value||'camp-meeting').replace(/\s+/g,'-').toLowerCase();
-    a.download='sda-camp-meeting-2026-'+name+'.png';
-    a.href=canvas.toDataURL('image/png');
-    a.click();
-  });
-}
 </script>
 </body>
 </html>
